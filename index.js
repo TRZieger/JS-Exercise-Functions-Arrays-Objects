@@ -82,7 +82,7 @@ function makeSmartPerson(name) {
     },
 
     speak() {
-      return `Hello, my name is ${makePersonObject}`;
+      return `Hello, my name is ${makeSmartPerson}`;
     }
   }
 
@@ -133,7 +133,7 @@ function get3rdCar(inventory) {
 /**
  * ### Challenge `getCarInfoByIndex`
  *
- * @instructions
+ * @in structions
  * getCarInfoByIndex takes two arguments:
  *     (1) an array which is an inventory of cars like the preview above (see ⭐️ Preview Test Data ⭐️)
  *     (2) a number which is the desired index in the array.
@@ -143,10 +143,9 @@ function get3rdCar(inventory) {
  * it will return `This is a Lincoln Navigator`.
  */
 function getCarInfoByIndex(inventory, index) {
-  const 
-  
-  
-  return `This is a `
+ 
+  return `This is a ${inventory[index].car_make} ${inventory[index].car_model}`
+
 }
 
 /**
@@ -160,14 +159,15 @@ function getCarInfoByIndex(inventory, index) {
  * For example, if getLastCarInfo is invoked passing the inventory inside /data/inventory.js,
  * it will return `This is a Lincoln Town Car`.
  */
-function getLastCarInfo(/* code here */) {
-  /* code here */
+function getLastCarInfo(inventory) {
+  return  `This is a ${inventory[inventory.length-1].car_make} ${inventory[inventory.length-1].car_model}`
+
 }
 
 /**
  * ### Challenge `getCarInfoById`
  *
- * @instructions
+ * @instructions   //************************   REVIEW *******************************************************************************************************
  * getCarInfoById takes two arguments:
  *     (1) an array which is an inventory of cars like the one inside /data/inventory.js.
  *     (2) a number which is the desired car id (see how each car has its own unique id).
@@ -176,39 +176,49 @@ function getLastCarInfo(/* code here */) {
  * For example, if getCarInfoById is invoked with the inventory and the number 1,
  * it will return `This is a Lincoln Navigator`.
  */
-function getCarInfoById(/* code here */) {
-  /* code here */
+function getCarInfoById(inventory) {
+  
+  for (let key in inventory){
+  return ` This is a ${inventory[key].car_make} ${inventory[key].car_model}`
+
+  }
 }
 
 /**
  * ### Challenge `sortCarInventory`
  *
- * @instructions
+ * @instructions      //************************   REVIEW *******************************************************************************************************
  * sortCarInventory takes a single argument:
  *     (1) an array which is an inventory of cars like the one inside /data/inventory.js.
  * sortCarInventory returns an inventory that is sorted by car_model, ascending [A-Z].
  */
-function sortCarInventory(/* code here */) {
-  /* code here */
+function sortCarInventory(inventory) {
+ 
+  const sorted= inventory.sort(function (a, b){
+
+  return a.car_model - b.car_model;
+ });
+ return sorted;
 }
 
 /**
  * ### Challenge `getModelYears`
  *
- * @instructions
+ * @instructions        //************************   REVIEW *******************************************************************************************************
  * We need the years from every car in the inventory!
  * getModelYears takes a single argument:
  *     (1) an array which is an inventory of cars like the one inside /data/inventory.js.
  * getModelYears returns an array containing all the 'car_year's in the inventory.
  */
-function getModelYears(/* code here */) {
-  /* code here */
+function getModelYears(inventory) {
+  
+  return inventory[inventory.length].car_year
 }
 
 /**
  * ### Challenge `getOlderCars`
  *
- * @instructions
+ * @instructions          //************************   REVIEW *******************************************************************************************************
  * We need a utility to find older cars!
  * getOlderCars takes two arguments:
  *     (1) an array which is an inventory of cars like the one inside /data/inventory.js.
@@ -217,9 +227,21 @@ function getModelYears(/* code here */) {
  * with a `car_year` which is at most the given desired max year,
  * in the same order as they appear in the original inventory.
  */
-function getOlderCars(/* code here */) {
-  /* code here */
+function getOlderCars(inventory, year) {
+  
+  var OlderCars = [];
+
+  for (let i = 0; i < inventory.length; i++) {
+    if (inventory[i].car_year <= year) {
+      OlderCars.push(inventory[i])
+    }
+  }
+  
+  return OlderCars;
 }
+
+   
+  
 
 /**
  * ### Challenge `getGermanCars`
@@ -232,9 +254,22 @@ function getOlderCars(/* code here */) {
  * made by either `Audi` or `Mercedes-Benz` or `Volkswagen` or `BMW`,
  * in the same order as they appear in the original inventory.
  */
-function getGermanCars(/* code here */) {
-  /* code here */
+function getGermanCars(inventory) {
+  let german = [];
+
+  for (let i=0; i < inventory.length; i++) {
+    if (inventory[i].car_make === "Audi"
+     || inventory[i].car_make === "Mercedes-Benz"
+      || inventory[i].car_make === "Volkswagen"
+       || inventory[i].car_make === "BMW") {
+        german.push(inventory[i])
+
+
+  }
 }
+  return german;
+}  
+
 
 /**
  * ### Challenge refactor to arrow functions
@@ -254,26 +289,19 @@ function getGermanCars(/* code here */) {
  *   return num * 2
  * }
  */
-const sum = null; // code here!
-const addFive = null; // code here!
-const argTimesTwo = null; // code here!
-
-/**
- * ### Challenge `carMaker`
- * THIS ONE IS A STRETCH GOAL. ATTEMPT IT ONLY AFTER
- * COMPLETING ALL NON-STRETCH CHALLENGES IN THE REPOSITORY!
- *
- * @instructions
- * This function takes a single odometer argument (a number) and returns an object.
- * The returned object has the following characteristics:
- *     it has an `odometer` property that contains the argument passed in.
- *     it has a `drive` method that takes a distance as its argument, and
- *         (1) causes the odometer in the object to be increased by the distance,
- *         (2) returns the updated value of the `odometer`.
- */
-function carMaker(/* code here */) {
-  /* code here */
+const sum = (a, b) => {
+  return a + b
 }
+
+const addFive = (num) => {
+  return num + 5
+}
+
+const argTimesTwo = (num) =>  {
+  return num * 2
+}
+
+
 
 /// ////// END OF CHALLENGE /////////
 /// ////// END OF CHALLENGE /////////
@@ -294,9 +322,8 @@ if (typeof exports !== "undefined") {
   if (makeSmartPerson) {
     module.exports.makeSmartPerson = makeSmartPerson;
   }
-  if (carMaker) {
-    module.exports.carMaker = carMaker;
-  }
+  
+
   if (getCarInfoByIndex) {
     module.exports.getCarInfoByIndex = getCarInfoByIndex;
   }
